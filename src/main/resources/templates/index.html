@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather App</h1>
+        </header>
+        <form action="/searchLocation" method="get" class="search-form">
+            <div class="search-container">
+                <input id="location" th:value="${locationName}" name="locationName" type="text" placeholder="Search Location" class="search-input" autocomplete="off">
+                <button type="submit" id="search-btn" class="search-btn">Search</button>
+            </div>
+                <span style = "color: red;" th:if="${errorlocationsearchbar != null}" th:text=${errorlocationsearchbar}></span>
+        </form>
+        <!-- <div class="weather-details" id="weather-details" th:if="${weatherInfo}">
+            <h2 th:text="${weatherInfo.location.name}"></h2>
+            <p><strong>Region:</strong> <span th:text="${weatherInfo.location.region}"></span></p>
+            <p><strong>Country:</strong> <span th:text="${weatherInfo.location.country}"></span></p>
+            <p><strong>Temperature:</strong> <span th:text="${weatherInfo.current.temp_c} + ' °C'"></span></p>
+            <p><strong>Condition:</strong> <span th:text="${weatherInfo.current.condition.text}"></span></p>
+            <img th:src="${weatherInfo.current.condition.icon}" alt="Weather Icon">
+        </div> -->
+    </div>
+    <div class="weather_info_container" th:if="${weatherInfo}">
+    	<div class="weather_conditions common_sub_weather_info_container">
+    		<h1 class="temperature_tag" th:text="${weatherInfo.current.temp_c} + '°C'"></h1>
+    		<img class="weather_icon_class" th:src="${weatherInfo.current.condition.icon}" alt="Weather Icon">
+    		<h2 th:text="${weatherInfo.current.condition.text}"></h2>
+    		<div class="windy_container common_icon_weather_info_container">
+    			<img alt="" src="/Images/windy.png">
+    			<h4 class="common_property_weather_info" th:text="${weatherInfo.current.wind_kph} + ' Kph'"></h4>
+    		</div>
+    		<div class="humidity_container common_icon_weather_info_container">
+    			<img alt="" src="/Images/water-drop.png">
+    			<h4 class="common_property_weather_info" th:text="${weatherInfo.current.humidity} + '%'"></h4>
+    		</div>
+    	</div>
+    	<div class="location_info common_sub_weather_info_container">
+    		<h1 th:text="${weatherInfo.location.name}"></h1>
+    		<h2 th:text="${weatherInfo.location.region}"></h2>
+    		<h2 th:text="${weatherInfo.location.country}"></h2>
+    		<h2 th:text="${weatherInfo.location.localtime}"></h2>
+    		<h2 th:text="${weatherInfo.location.lat}"></h2>
+    		<h2 th:text="${weatherInfo.location.lon}"></h2>
+    	</div>
+    </div>
+</body>
+</html>
